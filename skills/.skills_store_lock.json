@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "skills": {
+    "academic-writing-refiner": {
+      "name": "academic-writing-refiner",
+      "zip_url": "https://lightmake.site/api/v1/download?slug=academic-writing-refiner",
+      "source": "skillhub",
+      "version": "1.0.0"
+    },
+    "literature-review": {
+      "name": "Literature Review",
+      "zip_url": "https://lightmake.site/api/v1/download?slug=literature-review",
+      "source": "skillhub",
+      "version": "1.2.0"
+    },
+    "research-paper-writer": {
+      "name": "Research Paper Writer",
+      "zip_url": "https://lightmake.site/api/v1/download?slug=research-paper-writer",
+      "source": "skillhub",
+      "version": "0.1.0"
+    },
+    "lunwen": {
+      "name": "计科论文助手",
+      "zip_url": "https://lightmake.site/api/v1/download?slug=lunwen",
+      "source": "skillhub",
+      "version": "1.0.0"
+    },
+    "harvard-paper-zh": {
+      "name": "中文哈佛论文生成",
+      "zip_url": "https://lightmake.site/api/v1/download?slug=harvard-paper-zh",
+      "source": "skillhub",
+      "version": "0.1.0"
+    }
+  }
+}

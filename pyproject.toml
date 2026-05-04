@@ -1,0 +1,9 @@
+[project]
+name = "hengdong-asr"
+version = "0.1.0"
+description = "衡东方言ASR - SenseVoice LoRA微调"
+requires-python = ">=3.14"
+dependencies = [
+    "alibabacloud-oss-v2>=1.2.5",
+    "python-dotenv>=1.2.2",
+]
