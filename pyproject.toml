@@ -5,5 +5,7 @@ description = "衡东方言ASR - SenseVoice LoRA微调"
 requires-python = ">=3.14"
 dependencies = [
     "alibabacloud-oss-v2>=1.2.5",
+    "flask>=3.1.3",
+    "flask-cors>=6.0.2",
     "python-dotenv>=1.2.2",
 ]

@@ -77,58 +77,76 @@ def infer():
 
         # 1. SenseVoice-base
         print("[Inference] Running SenseVoice-base...")
-        start = time.time()
+        t0 = time.time()
         model = AutoModel(model='iic/SenseVoiceSmall', disable_update=True, device=device)
+        t1 = time.time()
         res = model.generate(input=output_path, language='auto', use_itn=True)
+        t2 = time.time()
         text = clean_sensevoice_text(res[0]['text']) if res else ''
-        elapsed = time.time() - start
-        results['sv_base'] = {'text': text, 'time': round(elapsed, 2)}
+        load_t = t1 - t0
+        infer_t = t2 - t1
+        total_t = t2 - t0
+        results['sv_base'] = {'text': text, 'time': round(total_t, 3), 'load_time': round(load_t, 3), 'infer_time': round(infer_t, 3)}
         del model
         free_memory()
-        print(f"[Inference] SV-base done: {elapsed:.2f}s")
+        print(f"[Inference] SV-base done: total={total_t:.3f}s, load={load_t:.3f}s, infer={infer_t:.3f}s")
 
         # 2. SenseVoice-ft
         print("[Inference] Running SenseVoice-ft...")
-        start = time.time()
+        t0 = time.time()
         model = AutoModel(model='iic/SenseVoiceSmall', lora_only=True, disable_update=True, device=device)
+        t1 = time.time()
         ckpt = torch.load(SV_CKPT, map_location='cpu', weights_only=False)
+        t2 = time.time()
         model.model.load_state_dict(ckpt['state_dict'], strict=False)
         del ckpt
+        t3 = time.time()
         res = model.generate(input=output_path, language='auto', use_itn=True)
+        t4 = time.time()
         text = clean_sensevoice_text(res[0]['text']) if res else ''
-        elapsed = time.time() - start
-        results['sv_ft'] = {'text': text, 'time': round(elapsed, 2)}
+        load_t = t3 - t0
+        infer_t = t4 - t3
+        total_t = t4 - t0
+        results['sv_ft'] = {'text': text, 'time': round(total_t, 3), 'load_time': round(load_t, 3), 'infer_time': round(infer_t, 3)}
         del model
         free_memory()
-        print(f"[Inference] SV-ft done: {elapsed:.2f}s")
+        print(f"[Inference] SV-ft done: total={total_t:.3f}s, load={load_t:.3f}s, infer={infer_t:.3f}s")
 
         # 3. Nano-base
         print("[Inference] Running Nano-base...")
-        start = time.time()
+        t0 = time.time()
         model = AutoModel(model='FunAudioLLM/Fun-ASR-Nano-2512', hub='ms', device=device, disable_update=True)
+        t1 = time.time()
         res = model.generate(input=output_path, language='中文', itn=True)
+        t2 = time.time()
         text = res[0]['text'] if res else ''
-        elapsed = time.time() - start
-        results['nano_base'] = {'text': text, 'time': round(elapsed, 2)}
+        load_t = t1 - t0
+        infer_t = t2 - t1
+        total_t = t2 - t0
+        results['nano_base'] = {'text': text, 'time': round(total_t, 3), 'load_time': round(load_t, 3), 'infer_time': round(infer_t, 3)}
         del model
         free_memory()
-        print(f"[Inference] Nano-base done: {elapsed:.2f}s")
+        print(f"[Inference] Nano-base done: total={total_t:.3f}s, load={load_t:.3f}s, infer={infer_t:.3f}s")
 
         # 4. Nano-ft
         print("[Inference] Running Nano-ft...")
-        start = time.time()
+        t0 = time.time()
         model = AutoModel(
             model='FunAudioLLM/Fun-ASR-Nano-2512',
             hub='ms', device=device, disable_update=True,
             init_param=NANO_CKPT,
         )
+        t1 = time.time()
         res = model.generate(input=output_path, language='中文', itn=True)
+        t2 = time.time()
         text = res[0]['text'] if res else ''
-        elapsed = time.time() - start
-        results['nano_ft'] = {'text': text, 'time': round(elapsed, 2)}
+        load_t = t1 - t0
+        infer_t = t2 - t1
+        total_t = t2 - t0
+        results['nano_ft'] = {'text': text, 'time': round(total_t, 3), 'load_time': round(load_t, 3), 'infer_time': round(infer_t, 3)}
         del model
         free_memory()
-        print(f"[Inference] Nano-ft done: {elapsed:.2f}s")
+        print(f"[Inference] Nano-ft done: total={total_t:.3f}s, load={load_t:.3f}s, infer={infer_t:.3f}s")
 
         return jsonify({"status": "success", "data": results})
 
