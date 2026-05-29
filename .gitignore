@@ -1,16 +1,65 @@
-# Python-generated files
+# Python
 __pycache__/
 *.py[oc]
 build/
 dist/
 wheels/
 *.egg-info
-
-# Virtual environments
 .venv
+.venv*/
+
+# Jupyter
+.ipynb_checkpoints
+
+# Node
+node_modules/
+package-lock.json
 
 # Secrets
 .env
 
-# Fine-tuned models (large binary files)
+# Large binary models (trained checkpoints)
 model/
+
+# IDE and OS
+.DS_Store
+.AppleDouble
+.LSOverride
+*.swp
+*.swo
+*~
+
+# IDE
+.vscode/
+.idea/
+*.iml
+
+# Logs
+*.log
+
+# Data links (external paths)
+local/audio_extra_link
+local/audio_link
+
+# Trained model outputs
+local/lora_adapter/
+local/whisper-base/
+local/*.png
+local/*.html
+local/*.json
+!local/pyproject.toml
+!local/oss_utils.py
+
+# Lock files
+uv.lock
+skills-lock.json
+
+# Agent configs
+.agents/
+.claude/
+.cc-connect/
+.playwright-mcp/
+
+# Temporary files
+generate_thesis.js
+jupyter_state.png

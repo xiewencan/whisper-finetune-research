@@ -45,8 +45,9 @@ class OSSUploader:
         self.total_bytes = 0
 
     def _create_client(self) -> oss.Client:
-        ak = os.environ.get('ALIBABA_CLOUD_ACCESS_KEY_ID')
-        sk = os.environ.get('ALIBABA_CLOUD_ACCESS_KEY_SECRET')
+        # 优先使用 NEW 凭证（新bucket），否则用默认凭证
+        ak = os.environ.get('ALIBABA_CLOUD_ACCESS_KEY_ID_NEW') or os.environ.get('ALIBABA_CLOUD_ACCESS_KEY_ID')
+        sk = os.environ.get('ALIBABA_CLOUD_ACCESS_KEY_SECRET_NEW') or os.environ.get('ALIBABA_CLOUD_ACCESS_KEY_SECRET')
         if ak and sk:
             cred = oss.credentials.StaticCredentialsProvider(
                 access_key_id=ak, access_key_secret=sk)
